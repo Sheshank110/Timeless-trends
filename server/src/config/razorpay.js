@@ -13,4 +13,5 @@ if (env.RAZORPAY_KEY_ID && env.RAZORPAY_KEY_SECRET) {
   console.warn('⚠️  Razorpay credentials not configured');
 }
 
+export { razorpayInstance };
 export default razorpayInstance;

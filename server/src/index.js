@@ -77,10 +77,19 @@ app.use(errorHandler);
 const startServer = async () => {
   try {
     await connectDB();
-    app.listen(env.PORT, () => {
+    const server = app.listen(env.PORT, () => {
       console.log(`\n⚡ TIMELESS TRENDS API running on port ${env.PORT}`);
       console.log(`   Environment: ${env.NODE_ENV}`);
       console.log(`   Client URL:  ${env.CLIENT_URL}\n`);
+    });
+
+    server.on('error', (error) => {
+      if (error.code === 'EADDRINUSE') {
+        console.error(`❌ Port ${env.PORT} is already in use. Free port ${env.PORT} or change PORT in .env`);
+      } else {
+        console.error('❌ Server error:', error.message);
+      }
+      process.exit(1);
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error.message);

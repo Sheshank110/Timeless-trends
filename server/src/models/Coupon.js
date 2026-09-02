@@ -33,7 +33,6 @@ const couponSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-couponSchema.index({ code: 1 });
 couponSchema.index({ validTo: 1 });
 
 // Check if coupon is valid

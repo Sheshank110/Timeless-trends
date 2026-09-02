@@ -1,11 +1,28 @@
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load .env from current directory, parent directory, and server directory
+dotenv.config();
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
+
+const isProd = process.env.NODE_ENV === 'production';
 const requiredEnvVars = ['MONGO_URI', 'JWT_SECRET', 'JWT_REFRESH_SECRET'];
 
-// Validate required environment variables
-const missingVars = requiredEnvVars.filter((key) => !process.env[key]);
-if (missingVars.length > 0 && process.env.NODE_ENV !== 'test') {
-  console.error(`❌ Missing required environment variables: ${missingVars.join(', ')}`);
-  console.error('   Please check your .env file.');
-  process.exit(1);
+// Validate required environment variables in production
+if (isProd) {
+  const missingVars = requiredEnvVars.filter((key) => !process.env[key]);
+  if (missingVars.length > 0) {
+    console.error(`❌ Missing required environment variables: ${missingVars.join(', ')}`);
+    console.error('   Please check your .env file.');
+    process.exit(1);
+  }
 }
 
 export const env = {
@@ -16,8 +33,8 @@ export const env = {
   MONGO_URI: process.env.MONGO_URI || '',
 
   // JWT
-  JWT_SECRET: process.env.JWT_SECRET || '',
-  JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET || '',
+  JWT_SECRET: process.env.JWT_SECRET || 'timeless_trends_dev_jwt_secret_min_32_chars_ok!',
+  JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET || 'timeless_trends_dev_jwt_refresh_secret_min_32_chars_ok!',
   JWT_EXPIRE: process.env.JWT_EXPIRE || '15m',
   JWT_REFRESH_EXPIRE: process.env.JWT_REFRESH_EXPIRE || '7d',
 
