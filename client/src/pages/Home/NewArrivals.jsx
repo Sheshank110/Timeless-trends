@@ -6,58 +6,10 @@ import toast from 'react-hot-toast';
 import { addToWishlist, removeFromWishlist, selectIsInWishlist } from '../../features/wishlist/wishlistSlice';
 import { addToCart } from '../../features/cart/cartSlice';
 import { setCartDrawer } from '../../features/ui/uiSlice';
+import { getNewArrivals } from '../../data/products';
 import newArrivalsBanner from '../../assets/new-arrivals-banner.jpg';
 
-const newArrivalsData = [
-  {
-    _id: 'na-1',
-    name: 'Organic French Linen Blazer',
-    price: 6499,
-    originalPrice: 7999,
-    category: 'Blazers',
-    gender: 'Women',
-    isNew: true,
-    image: 'https://images.unsplash.com/photo-1591369822096-ffd140ec948f?auto=format&fit=crop&q=80&w=800',
-    colors: ['#D4C5B0', '#2C2C2C'],
-    sizes: ['XS', 'S', 'M', 'L'],
-  },
-  {
-    _id: 'na-2',
-    name: 'Cashmere Ribbed Turtleneck',
-    price: 4299,
-    originalPrice: 5499,
-    category: 'Knitwear',
-    gender: 'Men',
-    isNew: true,
-    image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&q=80&w=800',
-    colors: ['#A0857A', '#121110', '#EDEDEB'],
-    sizes: ['S', 'M', 'L', 'XL'],
-  },
-  {
-    _id: 'na-3',
-    name: 'Wide-Leg Tailored Trousers',
-    price: 3899,
-    originalPrice: 4799,
-    category: 'Trousers',
-    gender: 'Women',
-    isNew: true,
-    image: 'https://images.unsplash.com/photo-1506629082955-511b1aa562c8?auto=format&fit=crop&q=80&w=800',
-    colors: ['#121110', '#C3B89A'],
-    sizes: ['26', '28', '30', '32'],
-  },
-  {
-    _id: 'na-4',
-    name: 'Brushed Cotton Relaxed Hoodie',
-    price: 2799,
-    originalPrice: 3499,
-    category: 'Hoodies',
-    gender: 'Men',
-    isNew: true,
-    image: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&q=80&w=800',
-    colors: ['#8B9E83', '#E8D5C4', '#2C2C2C'],
-    sizes: ['S', 'M', 'L', 'XL'],
-  },
-];
+const newArrivalsData = getNewArrivals(4);
 
 export const LuxuryProductCard = ({ product, badge }) => {
   const dispatch = useDispatch();
@@ -82,7 +34,7 @@ export const LuxuryProductCard = ({ product, badge }) => {
         product: product._id,
         name: product.name,
         price: product.price,
-        image: product.image,
+        image: product.images?.[0]?.url || product.image,
         size: product.sizes?.[1] || 'M',
         color: 'Default',
         quantity: 1,
@@ -97,10 +49,14 @@ export const LuxuryProductCard = ({ product, badge }) => {
     : 0;
 
   return (
-    <Link to={`/product/${product._id}`} className="group block text-left">
+    <Link
+      to={`/product/${product.slug || product._id}`}
+      state={{ product }}
+      className="group block text-left"
+    >
       <div className="relative aspect-[3/4] bg-[#F3EFE9] rounded-lg mb-5 overflow-hidden">
         <img
-          src={product.image}
+          src={product.images?.[0]?.url || product.image}
           alt={product.name}
           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           loading="lazy"
@@ -147,18 +103,18 @@ export const LuxuryProductCard = ({ product, badge }) => {
 
       <div className="px-1">
         <p className="text-[11px] text-[#8A8178] uppercase tracking-[0.12em] font-medium mb-1.5">
-          {product.gender} · {product.category}
+          {product.gender} · {product.category?.name || product.category}
         </p>
         <h3 className="text-sm font-semibold text-primary group-hover:opacity-70 transition-opacity line-clamp-1 mb-2">
           {product.name}
         </h3>
         <div className="flex items-baseline gap-2.5">
           <span className="text-sm font-bold text-primary tabular-nums">
-            ₹{product.price.toLocaleString()}
+            ₹{product.price?.toLocaleString()}
           </span>
           {product.originalPrice && product.originalPrice > product.price && (
             <span className="text-xs text-[#B5ADA4] line-through tabular-nums">
-              ₹{product.originalPrice.toLocaleString()}
+              ₹{product.originalPrice?.toLocaleString()}
             </span>
           )}
         </div>

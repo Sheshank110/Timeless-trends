@@ -20,7 +20,7 @@ const footerLinks = {
   ],
   atelier: [
     { label: 'Our Philosophy & Craft', path: '/about' },
-    { label: 'Interactive Look Customizer', path: '/customize' },
+    { label: 'Custom Atelier Studio', path: '/customize' },
     { label: 'AI Wardrobe Stylist', path: '/ai-stylist' },
     { label: 'Privacy Policy', path: '/privacy-policy' },
     { label: 'Terms & Conditions', path: '/terms' },

@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import HeroSection from './HeroSection';
 import CategoryCards from './CategoryCards';
 import EditorialBanner from './EditorialBanner';
-import CustomizerPromo from './CustomizerPromo';
 import AIAssistantPromo from './AIAssistantPromo';
 import TestimonialSection from './TestimonialSection';
 import InstagramSection from './InstagramSection';
@@ -35,10 +34,6 @@ const HomePage = () => {
       </motion.div>
 
       <EditorialBanner />
-
-      <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-50px' }}>
-        <CustomizerPromo />
-      </motion.div>
 
       <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-50px' }}>
         <AIAssistantPromo />

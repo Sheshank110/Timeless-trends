@@ -1,55 +1,10 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { HiOutlineFire, HiArrowRight } from 'react-icons/hi';
-import { LuxuryProductCard } from './NewArrivals';
+import { getTrendingProducts } from '../../data/products';
 import trendingBanner from '../../assets/trending-banner.jpg';
 
-const trendingData = [
-  {
-    _id: 'tr-1',
-    name: 'Structured Utility Overcoat',
-    price: 7499,
-    originalPrice: 8999,
-    category: 'Coats',
-    gender: 'Men',
-    rank: 1,
-    image: 'https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?auto=format&fit=crop&q=80&w=800',
-    sizes: ['S', 'M', 'L', 'XL'],
-  },
-  {
-    _id: 'tr-2',
-    name: 'Draped Satin Slip Dress',
-    price: 4599,
-    originalPrice: 5799,
-    category: 'Dresses',
-    gender: 'Women',
-    rank: 2,
-    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800',
-    sizes: ['XS', 'S', 'M', 'L'],
-  },
-  {
-    _id: 'tr-3',
-    name: 'Cargo Wide-Leg Denim',
-    price: 3699,
-    originalPrice: 4499,
-    category: 'Jeans',
-    gender: 'Men',
-    rank: 3,
-    image: 'https://images.unsplash.com/photo-1475180429745-7f65a36fff01?auto=format&fit=crop&q=80&w=800',
-    sizes: ['28', '30', '32', '34'],
-  },
-  {
-    _id: 'tr-4',
-    name: 'Merino Wool Turtleneck',
-    price: 3999,
-    originalPrice: 4999,
-    category: 'Knitwear',
-    gender: 'Women',
-    rank: 4,
-    image: 'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&q=80&w=800',
-    sizes: ['XS', 'S', 'M', 'L'],
-  },
-];
+const trendingData = getTrendingProducts(4);
 
 const TrendingSection = () => {
   return (
@@ -120,10 +75,14 @@ const TrendingSection = () => {
               </div>
               {/* Use white-themed card on dark bg */}
               <div className="rounded-lg overflow-hidden bg-white/5 border border-white/10 hover:border-white/20 transition-colors p-3">
-                <Link to={`/product/${prod._id}`} className="group block text-left">
+                <Link
+                  to={`/product/${prod.slug || prod._id}`}
+                  state={{ product: prod }}
+                  className="group block text-left"
+                >
                   <div className="relative aspect-[3/4] bg-white/5 rounded-md mb-4 overflow-hidden">
                     <img
-                      src={prod.image}
+                      src={prod.images?.[0]?.url || prod.image}
                       alt={prod.name}
                       className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                       loading="lazy"
@@ -135,18 +94,18 @@ const TrendingSection = () => {
                     </div>
                   </div>
                   <p className="text-[11px] text-white/40 uppercase tracking-[0.12em] font-medium mb-1.5">
-                    {prod.gender} · {prod.category}
+                    {prod.gender} · {prod.category?.name || prod.category}
                   </p>
                   <h3 className="text-sm font-semibold text-white group-hover:text-white/70 transition-opacity line-clamp-1 mb-2">
                     {prod.name}
                   </h3>
                   <div className="flex items-baseline gap-2.5">
                     <span className="text-sm font-bold text-white tabular-nums">
-                      ₹{prod.price.toLocaleString()}
+                      ₹{prod.price?.toLocaleString()}
                     </span>
                     {prod.originalPrice && prod.originalPrice > prod.price && (
                       <span className="text-xs text-white/35 line-through tabular-nums">
-                        ₹{prod.originalPrice.toLocaleString()}
+                        ₹{prod.originalPrice?.toLocaleString()}
                       </span>
                     )}
                   </div>

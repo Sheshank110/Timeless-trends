@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Garment Recolor Verification</title>
+  <style>
+    body { background: #0f0f11; color: #f4f4f5; font-family: system-ui, sans-serif; padding: 24px; }
+    h1 { font-size: 20px; margin-bottom: 16px; }
+    .controls { margin-bottom: 24px; display: flex; gap: 12px; align-items: center; }
+    button { padding: 8px 16px; border-radius: 6px; border: 1px solid #444; background: #27272a; color: white; cursor: pointer; font-weight: 500; }
+    button:hover { background: #3f3f46; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .card { background: #1c1c20; border-radius: 12px; overflow: hidden; padding: 16px; border: 1px solid rgba(255,255,255,0.06); }
+    .card h3 { font-size: 14px; margin: 0 0 10px 0; color: #d4d4d8; }
+    .viewer { width: 100%; aspect-ratio: 3/4; border-radius: 8px; overflow: hidden; background: #09090b; position: relative; }
+    .viewer img { width: 100%; height: 100%; object-fit: cover; display: block; transition: filter 0.4s ease; }
+    .viewer .tint-overlay { position: absolute; inset: 0; pointer-events: none; transition: all 0.4s ease; }
+  </style>
+</head>
+<body>
+  <h1>Interactive Verification — Same Cloth, Dynamic Color</h1>
+  <div class="controls">
+    <span>Colorway:</span>
+    <button onclick="setAllColor('Onyx Black', '#111111')">⚫ Onyx Black</button>
+    <button onclick="setAllColor('Pure White', '#FFFFFF')">⚪ Pure White</button>
+    <button onclick="setAllColor('Navy Blue', '#1B2A4A')">🔵 Navy Blue</button>
+    <button onclick="setAllColor('Olive Green', '#556B2F')">🟢 Olive Green</button>
+    <button onclick="setAllColor('Camel', '#C19A6B')">🟤 Camel</button>
+    <button onclick="resetAll()">↩️ Reset Original</button>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Pocket Detail Slub Cotton Tee (User Screenshot Item)</h3>
+      <div class="viewer">
+        <img id="img1" crossOrigin="anonymous" src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?auto=format&fit=crop&q=80&w=800" />
+        <div id="overlay1" class="tint-overlay"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Essential Oversized Heavyweight Tee (Model On Studio)</h3>
+      <div class="viewer">
+        <img id="img2" crossOrigin="anonymous" src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800" />
+        <div id="overlay2" class="tint-overlay"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Textured Linen Blend Camp Collar Shirt (Men Shirt)</h3>
+      <div class="viewer">
+        <img id="img3" crossOrigin="anonymous" src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&q=80&w=800" />
+        <div id="overlay3" class="tint-overlay"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function getColorStyle(colorName, hex) {
+      const n = (colorName || '').toLowerCase();
+      if (n.includes('white') || n.includes('ivory')) {
+        return {
+          filter: 'brightness(2.1) contrast(0.88) grayscale(0.85)',
+          overlayBg: 'rgba(255, 255, 255, 0.45)',
+          overlayBlend: 'screen',
+          overlayOpacity: '1'
+        };
+      }
+      if (n.includes('black') || n.includes('dark rinse')) {
+        return {
+          filter: 'brightness(0.55) contrast(1.25) grayscale(0.6)',
+          overlayBg: 'rgba(0, 0, 0, 0.55)',
+          overlayBlend: 'multiply',
+          overlayOpacity: '1'
+        };
+      }
+      if (n.includes('navy') || n.includes('blue') || n.includes('indigo') || n.includes('sky')) {
+        return {
+          filter: 'contrast(1.08) saturate(1.15)',
+          overlayBg: hex || '#1B2A4A',
+          overlayBlend: 'soft-light',
+          overlayOpacity: '0.88'
+        };
+      }
+      if (n.includes('olive') || n.includes('green') || n.includes('emerald')) {
+        return {
+          filter: 'contrast(1.05) saturate(1.1)',
+          overlayBg: hex || '#556B2F',
+          overlayBlend: 'soft-light',
+          overlayOpacity: '0.85'
+        };
+      }
+      if (n.includes('camel') || n.includes('khaki') || n.includes('tan') || n.includes('brown')) {
+        return {
+          filter: 'contrast(1.05) saturate(1.05)',
+          overlayBg: hex || '#C19A6B',
+          overlayBlend: 'soft-light',
+          overlayOpacity: '0.85'
+        };
+      }
+      if (n.includes('pink') || n.includes('rose')) {
+        return {
+          filter: 'contrast(1.05) saturate(1.1)',
+          overlayBg: hex || '#C08081',
+          overlayBlend: 'soft-light',
+          overlayOpacity: '0.82'
+        };
+      }
+      if (n.includes('burgundy')) {
+        return {
+          filter: 'contrast(1.1) saturate(1.15)',
+          overlayBg: hex || '#722F37',
+          overlayBlend: 'soft-light',
+          overlayOpacity: '0.85'
+        };
+      }
+      return {
+        filter: 'contrast(1.05) saturate(1.1)',
+        overlayBg: hex || 'transparent',
+        overlayBlend: 'soft-light',
+        overlayOpacity: '0.8'
+      };
+    }
+
+    function setAllColor(name, hex) {
+      const style = getColorStyle(name, hex);
+      for (let i = 1; i <= 3; i++) {
+        const img = document.getElementById('img' + i);
+        const ov = document.getElementById('overlay' + i);
+        img.style.filter = style.filter;
+        ov.style.background = style.overlayBg;
+        ov.style.mixBlendMode = style.overlayBlend;
+        ov.style.opacity = style.overlayOpacity;
+      }
+    }
+
+    function resetAll() {
+      for (let i = 1; i <= 3; i++) {
+        const img = document.getElementById('img' + i);
+        const ov = document.getElementById('overlay' + i);
+        img.style.filter = 'none';
+        ov.style.background = 'transparent';
+        ov.style.opacity = '0';
+      }
+    }
+  </script>
+</body>
+</html>

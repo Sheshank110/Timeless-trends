@@ -4,39 +4,32 @@ import heroBanner from '../../assets/hero-banner.jpg';
 
 const HeroSection = () => {
   return (
-    <section className="relative h-[88vh] min-h-[620px] max-h-[950px] overflow-hidden bg-primary" id="hero-section">
-      {/* Background Image with Ambient Zoom */}
+    <section
+      className="relative h-[calc(100vh-4.5rem)] min-h-[660px] max-h-[1080px] overflow-hidden bg-[#E5E0D7]"
+      id="hero-section"
+    >
+      {/* Background Image with Perfect Head-to-Toe Framing */}
       <motion.div
         className="absolute inset-0"
-        initial={{ scale: 1.08 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0.9, scale: 1.0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
       >
         <img
           src={heroBanner}
           alt="TIMELESS TRENDS Fashion Collection"
-          className="w-full h-full object-cover object-center filter brightness-[0.92]"
+          className="w-full h-full object-cover object-[center_48%] filter brightness-[0.95]"
           loading="eager"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
+        {/* Editorial ambient gradients: left for typography readability, subtle bottom for depth */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/25 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
       </motion.div>
 
       {/* Content with generous left margin & edge spacing */}
       <div className="relative z-10 h-full flex items-center">
         <div className="w-full max-w-[1520px] mx-auto px-8 sm:px-16 lg:px-24 xl:px-32">
           <div className="max-w-2xl text-left">
-            {/* Editorial capsule badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-[11px] font-sans tracking-[0.2em] uppercase mb-6"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-              Autumn / Winter Capsule 2025
-            </motion.div>
-
             <motion.h1
               className="font-serif text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.05] tracking-[-0.02em] mb-4"
               initial={{ opacity: 0, y: 25 }}

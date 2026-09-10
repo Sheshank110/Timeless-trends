@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { HiOutlineX, HiOutlineSearch, HiOutlineClock, HiOutlineTrendingUp } from 'react-icons/hi';
 import { setSearch } from '../../features/ui/uiSlice';
 
-const popularSearches = ['T-Shirts', 'Hoodies', 'Jeans', 'Jackets', 'New Arrivals'];
+const popularSearches = ['Shirts', 'T-Shirts', 'Jeans', 'Trousers', 'Hoodies', 'Jackets'];
 
 const SearchOverlay = () => {
   const dispatch = useDispatch();

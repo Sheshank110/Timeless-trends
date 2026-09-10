@@ -34,7 +34,7 @@ const curatedCategories = [
     name: 'Outerwear',
     tagline: 'Utility jackets & minimal overcoats',
     path: '/shop?category=jackets',
-    image: 'https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&q=80&w=1000',
+    image: '/products/structured-overcoat.jpg',
     span: 'col-span-1 aspect-[4/5]',
   },
   {

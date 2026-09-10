@@ -22,6 +22,7 @@ const navLinks = [
   { label: 'Home', path: '/' },
   { label: 'Men', path: '/men' },
   { label: 'Women', path: '/women' },
+  { label: 'Customize', path: '/customize' },
 ];
 
 const Navbar = () => {
@@ -56,20 +57,20 @@ const Navbar = () => {
       </a>
 
       <header
-        className={`sticky top-0 z-[200] transition-all duration-400 ${
+        className={`sticky top-0 z-[200] transition-all duration-300 ${
           isScrolled
-            ? 'bg-bg/90 backdrop-blur-md border-b border-border/60 shadow-xs py-2.5'
-            : 'bg-bg/95 backdrop-blur-xs py-4'
+            ? 'bg-bg/90 backdrop-blur-md border-b border-border/60 shadow-xs py-1.5'
+            : 'bg-bg/95 backdrop-blur-xs py-2'
         }`}
       >
         {/* Generous edge spacing: px-6 sm:px-12 lg:px-20 xl:px-24 */}
         <nav className="w-full max-w-[1520px] mx-auto px-6 sm:px-12 lg:px-20 xl:px-24">
-          <div className="flex items-center justify-between h-14 lg:h-16">
+          <div className="flex items-center justify-between h-11 sm:h-12">
             {/* Left: Mobile hamburger & Brand Logo */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <button
                 id="mobile-menu-toggle"
-                className="lg:hidden p-2 -ml-2 text-primary hover:text-text-secondary transition-colors"
+                className="lg:hidden p-1.5 -ml-1.5 text-primary hover:text-text-secondary transition-colors"
                 onClick={() => dispatch(setMobileMenu(!isMobileMenuOpen))}
                 aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               >
@@ -82,19 +83,19 @@ const Navbar = () => {
 
               <Link
                 to="/"
-                className="flex items-center gap-3 group shrink-0"
+                className="flex items-center gap-2.5 group shrink-0"
                 aria-label="TIMELESS TRENDS Home"
               >
                 <img
                   src={logo}
                   alt="TIMELESS TRENDS Emblem"
-                  className="h-11 sm:h-13 w-11 sm:w-13 object-cover rounded-full border border-black/5 shadow-2xs transition-transform duration-300 group-hover:scale-[1.04]"
+                  className="h-8 sm:h-9 w-8 sm:w-9 object-cover rounded-full border border-black/5 shadow-2xs transition-transform duration-300 group-hover:scale-[1.04]"
                 />
                 <div className="flex flex-col">
-                  <span className="font-serif text-base sm:text-lg tracking-[0.14em] uppercase font-medium text-primary leading-none">
+                  <span className="font-serif text-sm sm:text-base tracking-[0.14em] uppercase font-medium text-primary leading-tight">
                     TIMELESS TRENDS
                   </span>
-                  <span className="text-[9px] tracking-[0.26em] uppercase text-text-muted font-sans font-medium mt-0.5">
+                  <span className="text-[8px] tracking-[0.24em] uppercase text-text-muted font-sans font-medium">
                     Haute Atelier · 2026
                   </span>
                 </div>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { background: #111; color: white; font-family: sans-serif; padding: 20px; display: flex; flex-wrap: wrap; gap: 20px; }
+  .card { position: relative; width: 260px; height: 340px; overflow: hidden; border-radius: 8px; background: #222; }
+  .card img { width: 100%; height: 100%; object-fit: cover; }
+  .overlay { position: absolute; inset: 0; pointer-events: none; }
+  .label { position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.8); padding: 4px 8px; border-radius: 4px; font-size: 12px; z-index: 10; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800" />
+    <div class="label">Original (Black Tee)</div>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800" style="filter: brightness(2.1) contrast(0.85) grayscale(1) invert(0.15);" />
+    <div class="label">White (CSS Filter)</div>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800" style="filter: brightness(1.4) contrast(0.9) sepia(0.3) hue-rotate(180deg);" />
+    <div class="label">Navy (CSS Filter)</div>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800" style="filter: brightness(1.2) contrast(0.95) sepia(0.5) hue-rotate(50deg);" />
+    <div class="label">Olive (CSS Filter)</div>
+  </div>
+
+  <div class="card" style="position: relative;">
+    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800" />
+    <div class="overlay" style="background: rgba(255, 255, 255, 0.55); mix-blend-mode: hard-light;"></div>
+    <div class="label">White (Hard-Light)</div>
+  </div>
+
+  <div class="card" style="position: relative;">
+    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800" />
+    <div class="overlay" style="background: #1B2A4A; mix-blend-mode: soft-light; opacity: 0.9;"></div>
+    <div class="label">Navy (Soft-Light)</div>
+  </div>
+</body>
+</html>

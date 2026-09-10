@@ -76,10 +76,10 @@ const WishlistPage = () => {
                 animate={{ opacity: 1, scale: 1 }}
               >
                 <div className="relative aspect-[3/4] bg-bg-secondary mb-3 rounded overflow-hidden">
-                  <Link to={`/product/${product.slug || product._id}`}>
-                    {product.images?.[0]?.url ? (
+                  <Link to={`/product/${product.slug || product._id}`} state={{ product }}>
+                    {product.images?.[0]?.url || product.image ? (
                       <img
-                        src={product.images[0].url}
+                        src={product.images?.[0]?.url || product.image}
                         alt={product.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
@@ -101,10 +101,11 @@ const WishlistPage = () => {
                 <div className="flex flex-col flex-1 justify-between">
                   <div>
                     <p className="text-[10px] text-text-muted uppercase tracking-[0.12em] mb-1">
-                      {product.gender} · {product.category?.name || 'Exclusive'}
+                      {product.gender} · {product.category?.name || product.category || 'Exclusive'}
                     </p>
                     <Link
                       to={`/product/${product.slug || product._id}`}
+                      state={{ product }}
                       className="text-xs sm:text-sm font-medium text-primary hover:text-text-secondary transition-colors block truncate"
                     >
                       {product.name}

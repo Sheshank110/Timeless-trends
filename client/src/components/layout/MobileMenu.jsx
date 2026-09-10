@@ -10,8 +10,8 @@ const menuLinks = [
   { label: 'Home', path: '/' },
   { label: 'Men', path: '/men' },
   { label: 'Women', path: '/women' },
+  { label: 'Customize', path: '/customize' },
   { label: 'AI Stylist', path: '/ai-stylist' },
-  { label: 'Create Your Look', path: '/customize' },
 ];
 
 const secondaryLinks = [
